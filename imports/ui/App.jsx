@@ -8,7 +8,7 @@ import Game from "./Game.jsx";
 
 import HomePage from './containers/HomePage/index';
 import NotFound from './containers/NotFound/index';
-
+import Table from './Table.js';
 
 // export default class MainLayout extends React.Component {
 //   render() {
@@ -31,6 +31,7 @@ import NotFound from './containers/NotFound/index';
 	render(){
 		return(
 			<div>Black Jack HomePage
+				<div>Hello </div>
 				<AccountsUIWrapper/>
 				{
 					Meteor.user() ? 
@@ -38,13 +39,13 @@ import NotFound from './containers/NotFound/index';
 						<h1> testing </h1>
 						
 
-					</div>:
-					<Game /> 
-					//<div> Please log in again</div>
+					</div>
+					:
+					<Table />
+					
 
 				}
-				<div>Black Jack HomePage
-				</div>
+				
 			</div>
 			
 		);
