@@ -7,12 +7,13 @@ export default class Card extends React.Component{
 		var bgUrl = (this.props.hidden)
             ? 'url(./img/hidden.png)'
             : 'url(./img/' + this.props.face + '.png)';
-         
+        console.log(bgUrl);
         var cardStyle = {backgroundImage: bgUrl};
 
         return (
         	<div>
-        		<h1>Card Component</h1>
+
+        		<div className='card' style={cardStyle}/>
         	</div>
         );
 	}
