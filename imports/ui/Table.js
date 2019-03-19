@@ -23,13 +23,11 @@ export default class Table extends React.Component{
         	dealerscore: 0,
         	dealer: [],
         	nextDeck:[],
-        	status: "playing"
+        	status: "new",
 		}
-		
-
-
-
-
+		this.handleDealButt = this.handleDealButt.bind(this);
+  		this.handleHitButt = this.handleHitButt.bind(this);
+  		this.handleStandButt = this.handleStandButt.bind(this);
 	}
 
 
@@ -52,6 +50,7 @@ export default class Table extends React.Component{
 
 
 	getScore(hand){
+		
 		var n = hand.length;
 		var score = 0;
 		var hasAce = false;
@@ -69,6 +68,7 @@ export default class Table extends React.Component{
 	}
 
 	handleDealButt(){
+		console.log("hit Deal");
 		var deck = this.state.deck;
 		// var nexdeck = []
 		// if(deck.length < 5){
@@ -92,16 +92,18 @@ export default class Table extends React.Component{
 		// nexdeck.push(card2);
 		// nexdeck.push(card4);
 		// nexdeck.push(card4);
-
+		
 		this.setState({
 			player: newplayer,
 			dealer: newdealer,
-			deck: deck
+			deck: deck,
+			status: "playing",
 		});
 
 	}
 
 	handleHitButt(){
+		console.log("hit Hit!");
 		var deck = this.state.deck;
 		var newStatus = this.state.status;
 		var playerHand = this.state.player;
@@ -133,7 +135,7 @@ export default class Table extends React.Component{
 
             // deal a card
             dealerHand.push(deck.pop());
-            dealerScore = this.handScore(dealerHand);
+            dealerScore = this.getScore(dealerHand);
 
             if(dealerScore < 21 && dealerHand.length == 5){
                 // five card charlie
@@ -161,14 +163,15 @@ export default class Table extends React.Component{
                 <Interface
                     playerscore={this.getScore(this.state.player)}
                     dealerscore={this.getScore(this.state.dealer)}
-                    deal={this.handleDealButton}
-                    hit={this.handleHitButton}
-                    stand={this.handleStandButton}
+                    deal={this.handleDealButt}
+                    hit={this.handleHitButt}
+                    stand={this.handleStandButt}
                     status={this.state.status}
                     />
                 <Hand
                     hand={this.state.player}
                     />
+			
                 </div>
 		
 		);
