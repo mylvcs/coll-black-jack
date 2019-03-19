@@ -5,14 +5,17 @@ export default class Card extends React.Component{
 
 	render(){
 		var bgUrl = (this.props.hidden)
-            ? 'url(./img/hidden.png)'
-            : 'url(./img/' + this.props.face + '.png)';
-        console.log(bgUrl);
+            ? 'hidden.png'
+            : this.props.face + '.png';
+        //console.log(bgUrl);
         var cardStyle = {backgroundImage: bgUrl};
 
         return (
         	<div>
-
+        		<div>
+        			<img src = {"/images/" + bgUrl}/>
+        		</div>
+        		
         		<div className='card' style={cardStyle}/>
         	</div>
         );
