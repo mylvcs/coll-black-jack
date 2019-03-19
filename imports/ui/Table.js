@@ -23,11 +23,25 @@ export default class Table extends React.Component{
         	dealerscore: 0,
         	dealer: [],
         	nextDeck:[],
+<<<<<<< HEAD
         	status: "new",
 		}
 		this.handleDealButt = this.handleDealButt.bind(this);
   		this.handleHitButt = this.handleHitButt.bind(this);
   		this.handleStandButt = this.handleStandButt.bind(this);
+=======
+        	status: "ready",
+        	count: 0
+
+		};
+		
+		this.handleDealButt = this.handleDealButt.bind(this);
+		this.handleHitButt = this.handleHitButt.bind(this);
+		this.handleStandButt = this.handleStandButt.bind(this);
+
+		//shuffle(this.state.deck);
+
+>>>>>>> upstream/master
 	}
 
 
@@ -55,7 +69,10 @@ export default class Table extends React.Component{
 		var score = 0;
 		var hasAce = false;
 		for(var i = 0; i < n; i++){
+
+			//console.log(hand[i])
 			score += hand[i].v;
+
 			if(hand[i].v == 11){
 				hasAce = true;
 			}
@@ -68,7 +85,16 @@ export default class Table extends React.Component{
 	}
 
 	handleDealButt(){
+<<<<<<< HEAD
 		console.log("hit Deal");
+=======
+		
+		//if(this.state.deck == 'undefined') console.log("not right")
+		//console.log(this.state.deck)
+		
+		console.log(this.state.deck)
+		var newcount = this.state.count + 1;
+>>>>>>> upstream/master
 		var deck = this.state.deck;
 		// var nexdeck = []
 		// if(deck.length < 5){
@@ -82,7 +108,7 @@ export default class Table extends React.Component{
 		var card2 = deck.pop();
 		var card3 = deck.pop();
 		var card4 = deck.pop();
-		
+		var newPlayerscore = this.state.playerscore + 1;
 		var newplayer = [];
 		newplayer.push(card1);
 		newplayer.push(card2);
@@ -92,12 +118,21 @@ export default class Table extends React.Component{
 		// nexdeck.push(card2);
 		// nexdeck.push(card4);
 		// nexdeck.push(card4);
+<<<<<<< HEAD
 		
+=======
+		//console.log(newPlayerscore)
+>>>>>>> upstream/master
 		this.setState({
 			player: newplayer,
 			dealer: newdealer,
 			deck: deck,
+<<<<<<< HEAD
 			status: "playing",
+=======
+			playerscore: newPlayerscore,
+			count: newcount
+>>>>>>> upstream/master
 		});
 
 	}
@@ -156,6 +191,8 @@ export default class Table extends React.Component{
 	render(){
 		return(	
 				<div>
+				<h1>console.log("167")</h1>
+				console.log(this.deck);
 				<Hand
                     showDeck={true}
                     hand={this.state.dealer}

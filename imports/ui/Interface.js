@@ -7,7 +7,10 @@ export default class Interface extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+<<<<<<< HEAD
             
+=======
+>>>>>>> upstream/master
             status: "playing"
         }
 
@@ -29,7 +32,11 @@ export default class Interface extends React.Component {
                 <div className="btn-group btn-group-justified" role="group" aria-label="game">
                     <div className="btn-group" role="group">
                         {/* received as props to the Interface component the handleDeal function is now bound to the onClick event */}
+<<<<<<< HEAD
                         <button onClick={() => this.props.deal} type="button" className="btn btn-info">Deal</button>
+=======
+                        <button onClick = {this.props.deal} type="button" className="btn btn-info">Deal</button>
+>>>>>>> upstream/master
                     </div>
                     <div className="btn-group" role="group">
                         <button onClick={() => this.props.hit} type="button" className="btn btn-success">Hit</button>

@@ -5,9 +5,8 @@ export default class Outcome extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            
             status: "playing"
-        }
+        };
 
     }
     render(){
