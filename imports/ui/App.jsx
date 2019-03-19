@@ -37,7 +37,7 @@ import NotFound from './containers/NotFound/index';
 					<div>
 						<h1> testing </h1>
 						
-
+						
 					</div>:
 					<Game /> 
 					//<div> Please log in again</div>
