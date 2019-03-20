@@ -32,12 +32,13 @@ export default class Table extends React.Component{
 		this.handleHitButt = this.handleHitButt.bind(this);
 		this.handleStandButt = this.handleStandButt.bind(this);
 
-		//shuffle(this.state.deck);
+		this.shuffle(this.state.deck);
 
 	}
 
 
 	shuffle(deck){
+		
 		var len = deck.length, temporaryValue, randomIndex;
 		while(len != 0){
 			randomIndex = Math.floor(Math.random() * len);
