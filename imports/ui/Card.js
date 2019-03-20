@@ -16,7 +16,6 @@ export default class Card extends React.Component{
         			<img src = {"/img/" + bgUrl}/>
         		</div>
         		
-        		<div className='card' style={cardStyle}/>
         	</div>
         );
 	}
