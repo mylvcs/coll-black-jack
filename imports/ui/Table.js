@@ -124,7 +124,7 @@ export default class Table extends React.Component{
 		var playerHand = this.state.player;
 		playerHand.push(deck.pop());
 		var newPlayerscore = this.getScore(playerHand);
-		if(newPlayerscore < 21 && playerHand.length == 5)
+		if(newPlayerscore <= 21 && playerHand.length == 5)
             newStatus = "win";
         if(newPlayerscore > 21)
             newStatus = "lose";
@@ -163,7 +163,7 @@ export default class Table extends React.Component{
             dealer :  dealerHand,
             deck : deck,
             // compute game status
-            status : (dealerScore < 21 || dealerHasCharlie) ? 'lose' : 'win'
+            status : (dealerScore <= 21 || dealerHasCharlie) ? 'lose' : 'win'
         });
 	}
 
