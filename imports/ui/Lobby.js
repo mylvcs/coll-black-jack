@@ -86,10 +86,16 @@ Lobby.propTypes = {
 
 export default withTracker(() => {
 	  Meteor.subscribe('games');
+	  console.log("89 in lobby");
 	  return {
+
 	    games: Games.find({
 	      status: 'waiting',
-	      id: { $ne: Meteor.userId() },
+	      id: { $ne: Meteor.userId() }
 	    }).fetch(),
+	    if(match) {
+    		console.log(96);
+    		console.log(games)
+    	}
 	  };
 })(Lobby);

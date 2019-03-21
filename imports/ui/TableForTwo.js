@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
-import { Matches } from '../api/matches';
+import { Matches } from '../api/matches.js';
 import { Games } from "../api/games.js";
 import Interface from './Interface.js';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -34,7 +34,7 @@ class TableForTwo extends Component{
         	status: "ready",
         	count: 0,
         	gameId: null,
-        	renderDealer: false,
+        	renderDealer: true,
         	renderplayer1: false,
         	renderplayer1score: false,
         	renderplayer2: false,
@@ -48,15 +48,15 @@ class TableForTwo extends Component{
 		this.handleHitButt2 = this.handleHitButt2.bind(this);
 		this.handleStandButt2 = this.handleStandButt2.bind(this);
 		this.renderDealerCard = this.renderDealerCard.bind(this);
-		this.renderPlayer1button = this.renderPlayer1button.bind(this);
-		this.renderPlayer2button = this.renderPlayer2button.bind(this);
+		
+		
 		this.changeGame = this.changeGame.bind(this);
 		this.shuffle(this.state.deck);
 	}
 
 	componentDidMount() {
 		console.log("58")
-    	console.log(this.props);
+    	console.log(this.props.match);
 	    this.getCurrentGame();
 	  }
 
@@ -143,13 +143,15 @@ class TableForTwo extends Component{
 	}
 	renderPlayer1button(){
 		this.setState({
-			renderplayer1: true
+			renderplayer1: true,
+			renderPlayer1button: true
 		})
 	}
 
 	renderPlayer2button(){
 			this.setState({
-				renderplayer2: true
+				renderplayer2: true,
+				renderPlayer2button: true
 			})
 		}
 	getScore(hand){
@@ -243,7 +245,31 @@ class TableForTwo extends Component{
 
 	}
 	handleStandButt1(){
-		this.renderPlayer1button();
+		var dealerHand = this.state.dealer;
+		var deck = this.state.deck;
+
+
+		var dealerScore = this.getScore(dealerHand);
+        var playerScore = this.getScore(this.state.player1);
+        var dealerHasCharlie = false;
+
+        while (dealerScore < playerScore || dealerScore <= 17) {
+
+            dealerHand.push(deck.pop());
+            dealerScore = this.getScore(dealerHand);
+
+            if(dealerScore < 21 && dealerHand.length == 5){
+                dealerHasCharlie = true;
+                break;
+            }
+
+        }
+        this.setState({
+            dealer :  dealerHand,
+            deck : deck,
+            status1 : (dealerScore < 21 || dealerHasCharlie) ? 'lose' : 'win'
+        });
+        this.renderPlayer2button();
 	}
 	handleStandButt2(){
 		var dealerHand = this.state.dealer;
@@ -281,23 +307,70 @@ class TableForTwo extends Component{
     }
 	render(){
 		const renderDealer = this.state.renderDealer;
-
+		const renderplayer1 = this.state.renderplayer1;
+		const renderplayer2 = this.state.renderplayer2;
 		return (
-
 			<div>
-				{
-					renderDealer ?
-					<Hand
-	                    showDeck={true}
-	                    hand={this.state.dealer}
-                    /> 
+				<div>
+					{
+						renderDealer ?
+						<Hand
+		                    showDeck={true}
+		                    hand={this.state.dealer}
+	                    /> 
 
-					:
-					<h1> loading </h1>
-				}
-				
-				
+						:
+						<h1> loading </h1>
+					}
+					
+					
+				</div>
+
+				<div>
+					<div>
+					{
+						renderplayer1 ? 
+						<div>
+						<Interface
+	                    playerscore={this.getScore(this.state.player1)}
+	                    dealerscore={this.getScore(this.state.dealer)}
+	                    deal={this.handleDealButt1}
+	                    hit={this.handleHitButt1}
+	                    stand={this.handleStandButt1}
+	                    status={this.state.status1}
+	                    />
+		                <Hand
+		                    hand={this.state.player1}
+		                    />
+		                </div>
+		                :
+
+		                <h1> waiting for player1 </h1>
+					}
+					</div>
+					<div>
+					{
+						renderplayer2 ? 
+						<div>
+						<Interface
+	                    playerscore={this.getScore(this.state.player2)}
+	                    dealerscore={this.getScore(this.state.dealer)}
+	                    deal={this.handleDealButt2}
+	                    hit={this.handleHitButt2}
+	                    stand={this.handleStandButt2}
+	                    status={this.state.status2}
+	                    />
+		                <Hand
+		                    hand={this.state.player2}
+		                    />
+		                </div>
+		                :
+		                <h1> waiting for player2 </h1>
+					}
+					</div>
+				</div>
 			</div>
+			
 			
 		);
 	}

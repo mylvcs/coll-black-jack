@@ -81,6 +81,8 @@ Meteor.methods({
     },
     'matches.update': (id, dealer,player1, player2) =>{
         const match = Matches.findOne(id);
+        console.log(84 + "in matches.js")
+        console.log(match)
         Matches.update(id, {
             $set:{
                 dealer: dealer,
@@ -88,6 +90,7 @@ Meteor.methods({
                 player2: player2
             }
         })
+        console.log(93)
         console.log(Matches.findOne(id))
     }
     

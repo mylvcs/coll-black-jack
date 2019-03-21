@@ -19,13 +19,12 @@ Meteor.methods({
     Games.upsert(
       { id: Meteor.userId() },
       {
-        id,
+        id: Meteor.userId(),
         status: 'waiting',
         player1_id: Meteor.userId(),
         player1_user: Meteor.user().username,
         player2_id: null,
-        player2_user: null,
-        date: new Date(),
+        player2_user: null
       },
     );
 
@@ -41,7 +40,7 @@ Meteor.methods({
     Games.update(game[0]._id, {
       status: 'playing',
       player2_id: Meteor.userId(),
-      player2_user: Meteor.user().username,
+      player2_user: Meteor.user().username
     });
     console.log(game[0]);
     return game[0]._id;
@@ -52,11 +51,5 @@ Meteor.methods({
   },
   'games.remove': function (id) {
     Games.remove(id);
-  },
-  'games.find': function () {
-    const game = Games.find({
-      $or: [{ player1_id: Meteor.userId() }, { player2_id: Meteor.userId() }],
-    }).fetch();
-    return game;
-  },
+  }
 });
