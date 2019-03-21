@@ -57,6 +57,7 @@ export default class Table extends React.Component{
 
 
 	getScore(hand){
+		
 		var n = hand.length;
 		var score = 0;
 		var hasAce = false;
@@ -118,6 +119,7 @@ export default class Table extends React.Component{
 	}
 
 	handleHitButt(){
+		console.log("hit Hit!");
 		var deck = this.state.deck;
 		var newStatus = this.state.status;
 		var playerHand = this.state.player;
@@ -170,7 +172,7 @@ export default class Table extends React.Component{
 	render(){
 		return(	
 				<div>
-				<h1>console.log("167")</h1>
+				
 				console.log(this.deck);
 				<Hand
                     showDeck={true}
@@ -187,6 +189,7 @@ export default class Table extends React.Component{
                 <Hand
                     hand={this.state.player}
                     />
+			
                 </div>
 		
 		);

@@ -13,13 +13,11 @@ export default class Card extends React.Component{
         return (
         	<div>
         		<div>
-        			<img src = {"/images/" + bgUrl}/>
+        			<img src = {"/img/" + bgUrl}/>
         		</div>
         		
         	</div>
         );
 	}
-
-
 
 }

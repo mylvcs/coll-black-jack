@@ -31,13 +31,13 @@ export default class Interface extends React.Component {
                         <button onClick = {this.props.deal} type="button" className="btn btn-info">Deal</button>
                     </div>
                     <div className="btn-group" role="group">
-                        <button onClick={this.props.hit} type="button" className="btn btn-success">Hit</button>
+                        <button onClick={() => this.props.hit} type="button" className="btn btn-success">Hit</button>
                     </div>
                     <div className="btn-group" role="group">
-                        <button onClick={this.props.stand} type="button" className="btn btn-danger">Stand</button>
+                        <button onClick={() => this.props.stand} type="button" className="btn btn-danger">Stand</button>
                     </div>
                 </div>
-
+ 
             </div>
         );
     }

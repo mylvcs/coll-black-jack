@@ -4,7 +4,51 @@ import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { Games } from '../api/games.js';
+import {Template} from 'meteor/templating';
 
+import {Session} from 'meteor/session';
+//这里是我加的
+Template.ui.onCreated(() => {
+	Meteor.subscribe('Games');
+})
+
+Template.ui.events({
+	"click #play-btn" : () =>{
+		Session.set("inGame", true);
+		Meteor.call("games.play");
+		Meteor.subscribe('MyGame');
+	}
+})
+
+Template.ui.helpers({
+	inGame : () => {
+		return Session.get("inGame");
+	},
+	status: () => {
+		if (Session.get("inGame")){
+			let myGame = Games.findOne();
+
+			if (myGame.status === "waiting")
+			return "Looking for the partner";
+			else if (myGame.status=== Meteor.userId())
+				return "Your turn";
+				else if (myGame.status !== Meteor.userId() && myGame.status !== "end")
+				return "partnes's turn";
+
+				else if (myGame.result === Meteor.userId())
+				return "You won!";
+				else if (myGame.status === "end" && myGame.result !== Meteor.userId() && myGame.result !== "tie")
+				return "You lost";
+				else if (myGame.status === "tie")
+				return "Your partner won!";
+				else 
+				return "";
+		}
+	}
+});
+
+
+//下面是没动
 class Lobby extends React.Component {
 
 	constructor(props) {
@@ -28,7 +72,7 @@ class Lobby extends React.Component {
 	      this.changeGame(game);
 	    });
 	  }
-
+		
 	 joinGame(id) {
 	 	console.log(id);
 	    Meteor.call('games.update', id, (err, game) => {
@@ -59,12 +103,14 @@ class Lobby extends React.Component {
 	render(){
 		return(
 			<div>
-				<Button
+				<Button 
 		            className="newGame-btt"
-		            onClick={this.createNewGame.bind(this)}
+								onClick={this.createNewGame.bind(this)}  
 		          >
-		          	Create a new Game?
+		          	Create a new Game? 
 		         </Button>
+						 
+						 
 		          <div className="join">
 		            <legend>
 		              <h5>Or you can play a existing game with</h5>
