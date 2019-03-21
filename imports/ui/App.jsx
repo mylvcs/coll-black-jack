@@ -49,7 +49,7 @@ class HomeComponent extends Component {
             return <Lobby onGame={game} />
         }
         else {
-            console.log("51")
+            console.log("TableForTwo worked!")
             console.log(id)
             return <TableForTwo onGame={game} id={id} />
         }
