@@ -162,7 +162,7 @@ export default class Table extends React.Component{
             dealer :  dealerHand,
             deck : deck,
             // compute game status
-            status : (dealerScore <== 21 || dealerHasCharlie) ? 'lose' : 'win'
+            status : (dealerScore <= 21 || dealerHasCharlie) ? 'lose' : 'win'
         });
 	}
 
