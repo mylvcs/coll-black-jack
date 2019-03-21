@@ -2,3 +2,35 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+div{
+  font-family: 'Chakra Petch', sans-serif; 
+}
+
+.list-group{
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+div.container-fluid#bienve{
+  height: 90vh;
+  background-image: url(/images/fondo.jpg);
+  background-size: cover; 
+  opacity: .9;
+}
+
+div.container-fluid#lobby{
+  height: 90vh;
+
+}
+
+div#lobby{
+  background-size: 100%;
+  background-image: linear-gradient(#fff, #E9E0D0);
+}
+
+div.footer-copyright.footer-dark.text-center.py-3{
+      background-color: #343a40;
+      color: white;
+}
