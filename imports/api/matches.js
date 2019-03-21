@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 
 export const Matches = new Mongo.Collection('matches');
 
-const sizeBoard = 6;
+
 
 if (Meteor.isServer) {
     Meteor.publish('matches', () => Matches.find({}));
@@ -61,21 +61,34 @@ Meteor.methods({
         return match;
     },
     'matches.join': (params) => {
-        console.log('*********');
-        const { gameId, id2, user2 } = params;
+        
+        
         console.log('params', params);
-        actg = Matches.findOne(gameId);
+        actg = Matches.findOne(params.gameId);
         console.log('matches found', actg);
-        Matches.update(gameId, {
+        console.log(actg)
+        console.log(params.gameId);
+        Matches.update(params.gameId, {
             $set: {
-                player2_id: id2,
-                player2_user: user2,
+                player2_id: params.id2,
+                player2_user: params.user2,
                 status: 'onGame',
             },
         });
-        const match = Matches.findOne(gameId);
-        console.log('updated match', match);
+        const match = Matches.findOne(params.gameId);
+        console.log(match);
         return match;
+    },
+    'matches.update': (id, dealer,player1, player2) =>{
+        const match = Matches.findOne(id);
+        Matches.update(id, {
+            $set:{
+                dealer: dealer,
+                player1: player1,
+                player2: player2
+            }
+        })
+        console.log(Matches.findOne(id))
     }
     
 });
